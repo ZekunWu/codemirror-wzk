@@ -66,17 +66,23 @@ export function buildLineContent(cm, lineView, lineN = -1) { //wzkfix
   // rectangles for it (in measureChar).
   let content = eltP("span", null, null, webkit ? "padding-right: .1px" : null)
   //wzkfix
-  if("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1) {
-    var builder = {pre: eltP("pre", [content], "CodeMirror-line", "background-color: grey" ), content: content,
-                  col: 0, pos: 0, cm: cm,
-                  trailingSpace: false,
-                  splitSpaces: cm.getOption("lineWrapping")};
-  } else {
-    var builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
-                  col: 0, pos: 0, cm: cm,
-                  trailingSpace: false,
-                  splitSpaces: cm.getOption("lineWrapping")};
-  }
+  // if("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1) {
+  //   var builder = {pre: eltP("pre", [content], "CodeMirror-line", "background-color: grey" ), content: content,
+  //                 col: 0, pos: 0, cm: cm,
+  //                 trailingSpace: false,
+  //                 splitSpaces: cm.getOption("lineWrapping")};
+  // } else {
+  //   var builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
+  //                 col: 0, pos: 0, cm: cm,
+  //                 trailingSpace: false,
+  //                 splitSpaces: cm.getOption("lineWrapping")};
+  // }
+  let builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
+                col: 0, pos: 0, cm: cm,
+                trailingSpace: false,
+                splitSpaces: cm.getOption("lineWrapping")};
+  if ("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1)
+    builder.pre = eltP("pre", [content], "CodeMirror-line", "background-color: grey" )
   lineView.measure = {}
 
   // Iterate over the logical lines that make up this visual line.
