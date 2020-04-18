@@ -66,7 +66,7 @@ export function buildLineContent(cm, lineView, lineN = -1) { //wzkfix
   // rectangles for it (in measureChar).
   let content = eltP("span", null, null, webkit ? "padding-right: .1px" : null)
   //wzkfix
-  let builder
+  let builder = {}
   if("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1) {
     builder = {pre: eltP("pre", [content], "CodeMirror-line", "background-color: grey" ), content: content,
                   col: 0, pos: 0, cm: cm,
