@@ -66,13 +66,14 @@ export function buildLineContent(cm, lineView, lineN = -1) { //wzkfix
   // rectangles for it (in measureChar).
   let content = eltP("span", null, null, webkit ? "padding-right: .1px" : null)
   //wzkfix
+  let builder
   if("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1) {
-    let builder = {pre: eltP("pre", [content], "CodeMirror-line", "background-color: grey" ), content: content,
+    builder = {pre: eltP("pre", [content], "CodeMirror-line", "background-color: grey" ), content: content,
                   col: 0, pos: 0, cm: cm,
                   trailingSpace: false,
                   splitSpaces: cm.getOption("lineWrapping")};
   } else {
-    let builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
+    builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
                   col: 0, pos: 0, cm: cm,
                   trailingSpace: false,
                   splitSpaces: cm.getOption("lineWrapping")};
