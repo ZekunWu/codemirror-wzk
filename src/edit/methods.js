@@ -288,15 +288,22 @@ export default function(CodeMirror) {
       }, sel_move)
     }),
 
-    deleteH: methodOp(function(dir, unit) {
+    deleteH: methodOp(function(dir, unit, cm=this) { //wzkfix
       let sel = this.doc.sel, doc = this.doc
       if (sel.somethingSelected())
-        doc.replaceSelection("", null, "+delete")
-      else
-        deleteNearSelection(this, range => {
-          let other = findPosH(doc, range.head, dir, unit, false)
-          return dir < 0 ? {from: other, to: range.head} : {from: range.head, to: other}
-        })
+          { 
+            doc.replaceSelection("", null, "+delete"); }
+        else
+          { deleteNearSelection(this, function (range$$1) {
+            var other = findPosH(doc, range$$1.head, dir, unit, false);
+            if(other.line < range$$1.head.line){
+              cm.options.lockedLines = cm.options.lockedLines.map((item) => {
+                return item > other.line ? item - 1 : item
+              })
+            }
+            return dir < 0 ? {from: other, to: range$$1.head} : {from: range$$1.head, to: other}
+          }); }
+        cm.refresh()//wzkfix
     }),
 
     findPosV: function(from, amount, unit, goalColumn) {

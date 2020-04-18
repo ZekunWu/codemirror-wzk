@@ -84,7 +84,7 @@ export let commands = {
   goGroupRight: cm => cm.moveH(1, "group"),
   goGroupLeft: cm => cm.moveH(-1, "group"),
   goWordRight: cm => cm.moveH(1, "word"),
-  delCharBefore: cm => cm.deleteH(-1, "char"),
+  delCharBefore: cm => cm.deleteH(-1, "char", cm),//wzkfix
   delCharAfter: cm => cm.deleteH(1, "char"),
   delWordBefore: cm => cm.deleteH(-1, "word"),
   delWordAfter: cm => cm.deleteH(1, "word"),
@@ -141,12 +141,16 @@ export let commands = {
   }),
   newlineAndIndent: cm => runInOp(cm, () => {
     let sels = cm.listSelections()
+    cm.options.lockedLines = cm.options.lockedLines.map((item) => {  //wzkfix
+      return item > sels[0].anchor.line ? item + 1 : item
+    })
     for (let i = sels.length - 1; i >= 0; i--)
       cm.replaceRange(cm.doc.lineSeparator(), sels[i].anchor, sels[i].head, "+input")
     sels = cm.listSelections()
     for (let i = 0; i < sels.length; i++)
       cm.indentLine(sels[i].from().line, null, true)
     ensureCursorVisible(cm)
+    cm.refresh()
   }),
   openLine: cm => cm.replaceSelection("\n", "start"),
   toggleOverwrite: cm => cm.toggleOverwrite()

@@ -71,6 +71,14 @@ export function onMouseDown(e) {
     }
     return
   }
+  //wzkfix
+  if (cm.options.lockAble === true && e.clientX >= Math.floor(cm.display.gutters.getBoundingClientRect().right - 44) && e.clientX <= Math.floor(cm.display.gutters.getBoundingClientRect().right - 30)) {
+    cm.options.lockedLines.indexOf(posFromMouse(cm, e).line) !== -1 ?
+      cm.options.lockedLines.splice(cm.options.lockedLines.indexOf(posFromMouse(cm, e).line), 1) :
+      cm.options.lockedLines.push(posFromMouse(cm, e).line)
+    cm.refresh(cm)
+    //buildLineContent(cm, cm.display.view[posFromMouse(cm, e).line], posFromMouse(cm, e).line + 1)
+  }
   if (clickInGutter(cm, e)) return
   let pos = posFromMouse(cm, e), button = e_button(e), repeat = pos ? clickRepeat(pos, button) : "single"
   window.focus()

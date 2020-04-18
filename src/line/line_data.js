@@ -60,15 +60,23 @@ function interpretTokenStyle(style, options) {
 // specific stretches of text, and is used by the measuring code.
 // The returned object contains the DOM node, this map, and
 // information about line-wide styles that were set by the mode.
-export function buildLineContent(cm, lineView) {
+export function buildLineContent(cm, lineView, lineN = -1) { //wzkfix
   // The padding-right forces the element to have a 'border', which
   // is needed on Webkit to be able to get line-level bounding
   // rectangles for it (in measureChar).
   let content = eltP("span", null, null, webkit ? "padding-right: .1px" : null)
-  let builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
-                 col: 0, pos: 0, cm: cm,
-                 trailingSpace: false,
-                 splitSpaces: cm.getOption("lineWrapping")}
+  //wzkfix
+  if("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1) {
+    let builder = {pre: eltP("pre", [content], "CodeMirror-line", "background-color: grey" ), content: content,
+                  col: 0, pos: 0, cm: cm,
+                  trailingSpace: false,
+                  splitSpaces: cm.getOption("lineWrapping")};
+  } else {
+    let builder = {pre: eltP("pre", [content], "CodeMirror-line"), content: content,
+                  col: 0, pos: 0, cm: cm,
+                  trailingSpace: false,
+                  splitSpaces: cm.getOption("lineWrapping")};
+  }
   lineView.measure = {}
 
   // Iterate over the logical lines that make up this visual line.
