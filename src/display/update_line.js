@@ -46,14 +46,14 @@ function updateLineBackground(cm, lineView) {
 
 // Wrapper around buildLineContent which will reuse the structure
 // in display.externalMeasured when possible.
-function getLineContent(cm, lineView) {
+function getLineContent(cm, lineView, lineN) {// wzkfix
   let ext = cm.display.externalMeasured
   if (ext && ext.line == lineView.line) {
     cm.display.externalMeasured = null
     lineView.measure = ext.measure
     return ext.built
   }
-  return buildLineContent(cm, lineView)
+  return buildLineContent(cm, lineView, lineN)// wzkfix
 }
 
 // Redraw the line's text. Interacts with the background and text
@@ -145,7 +145,7 @@ function updateLineWidgets(cm, lineView, dims) {
 
 // Build a line's DOM representation from scratch
 export function buildLineElement(cm, lineView, lineN, dims) {
-  let built = getLineContent(cm, lineView)
+  let built = getLineContent(cm, lineView, lineN) //wzkfix
   lineView.text = lineView.node = built.pre
   if (built.bgClass) lineView.bgClass = built.bgClass
   if (built.textClass) lineView.textClass = built.textClass
