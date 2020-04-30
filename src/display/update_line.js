@@ -114,16 +114,16 @@ function updateLineGutter(cm, lineView, lineN, dims) {
         elt("div", lineNumberFor(cm.options, lineN),
         "CodeMirror-linenumber CodeMirror-gutter-elt",
         ("left: " + (dims.gutterLeft["CodeMirror-linenumbers"]) + "px; width: " + (cm.display.lineNumInnerWidth) + "px"))); 
-//       if (cm.options.lockAble === true) {
-//         lineView.lineNumber.appendChild(
-//           elt("div", null, "CodeMirror-lineLockBottom", 
-//           (`position: absolute; cursor: pointer; width: 12px; height: 8px; left: 3px; top: 8px; border: 1px solid ${cm.options.lockedLines.indexOf(lineN) !== -1 ? "red" : "grey"}`))
-//         )
-//         lineView.lineNumber.appendChild(
-//           elt("div", null, "CodeMirror-lineLockTop", 
-//           (`position: absolute; width: 8px; height: 4px; left: 5px; top: 2px; border: 1px solid ${cm.options.lockedLines.indexOf(lineN) !== -1 ? "red" : "grey"}; border-radius: 50% 50% 0 0/100% 100% 0 0; border-bottom: none`))
-//         )
-//       }
+      if (cm.options.lockAble === true) {
+        lineView.lineNumber.appendChild(
+          elt("div", null, "CodeMirror-lineLockBottom", 
+          (`position: absolute; cursor: pointer; width: 12px; height: 8px; left: 3px; top: 8px; border: 1px solid ${cm.options.lockedLines.indexOf(lineN) !== -1 ? "red" : "grey"}`))
+        )
+        lineView.lineNumber.appendChild(
+          elt("div", null, "CodeMirror-lineLockTop", 
+          (`position: absolute; width: 8px; height: 4px; left: 5px; top: 2px; border: 1px solid ${cm.options.lockedLines.indexOf(lineN) !== -1 ? "red" : "grey"}; border-radius: 50% 50% 0 0/100% 100% 0 0; border-bottom: none`))
+        )
+      }
     if (markers) for (let k = 0; k < cm.display.gutterSpecs.length; ++k) {
       let id = cm.display.gutterSpecs[k].className, found = markers.hasOwnProperty(id) && markers[id]
       if (found)
