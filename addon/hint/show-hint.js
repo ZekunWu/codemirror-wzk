@@ -411,6 +411,10 @@
       resolved.supportsSelection = true
       return resolved
     } else if (words = cm.getHelper(cm.getCursor(), "hintWords")) {
+      // 读取用户定义的变量字段 wzk-fix
+      if (CodeMirror.uKeys && CodeMirror.uKeys.length) {
+        words = [...words, ...CodeMirror.uKeys];
+      }
       return function(cm) { return CodeMirror.hint.fromList(cm, {words: words}) }
     } else if (CodeMirror.hint.anyword) {
       return function(cm, options) { return CodeMirror.hint.anyword(cm, options) }
