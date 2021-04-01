@@ -1,5 +1,5 @@
 {
-  "name": "codemirror",
+  "name": "codemirror-wzk",
   "version": "5.49.2",
   "main": "lib/codemirror.js",
   "style": "lib/codemirror.css",

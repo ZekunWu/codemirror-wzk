@@ -81,8 +81,8 @@ export function buildLineContent(cm, lineView, lineN = -1) { //wzkfix
                 col: 0, pos: 0, cm: cm,
                 trailingSpace: false,
                 splitSpaces: cm.getOption("lineWrapping")};
-  if ("lockedLines" in cm.options && cm.options.lockedLines.indexOf(lineN) !== -1)
-    builder.pre = eltP("pre", [content], "CodeMirror-line", "background-color: #404040" )
+  if (cm.options.lockedLines !== undefined && cm.options.lockedLines.indexOf(lineN) !== -1)
+    builder.pre = eltP("pre", [content], "CodeMirror-line", "background-color: grey" )
   lineView.measure = {}
 
   // Iterate over the logical lines that make up this visual line.
