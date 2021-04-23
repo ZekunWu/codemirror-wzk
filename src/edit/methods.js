@@ -297,7 +297,7 @@ export default function(CodeMirror) {
           { deleteNearSelection(this, function (range$$1) {
             var other = findPosH(doc, range$$1.head, dir, unit, false);
             if(other.line < range$$1.head.line){
-              cm.options.lockedLines = cm.options.lockedLines.map((item) => {
+              if(cm.options.lockedLines) cm.options.lockedLines = cm.options.lockedLines.map((item) => {
                 return item > other.line ? item - 1 : item
               })
             }

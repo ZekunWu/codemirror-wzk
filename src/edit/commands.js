@@ -141,7 +141,7 @@ export let commands = {
   }),
   newlineAndIndent: cm => runInOp(cm, () => {
     let sels = cm.listSelections()
-    cm.options.lockedLines = cm.options.lockedLines.map((item) => {  //wzkfix
+    if(cm.options.lockedLines) cm.options.lockedLines = cm.options.lockedLines.map((item) => {  //wzkfix
       return item > sels[0].anchor.line ? item + 1 : item
     })
     for (let i = sels.length - 1; i >= 0; i--)
