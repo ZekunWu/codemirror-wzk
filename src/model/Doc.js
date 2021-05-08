@@ -78,6 +78,7 @@ Doc.prototype = createObj(BranchChunk.prototype, {
     if (this.cm) scrollToCoords(this.cm, 0, 0)
     setSelection(this, simpleSelection(top), sel_dontScroll)
   }),
+  makeChange, //wzkfix new
   replaceRange: function(code, from, to, origin) {
     from = clipPos(this, from)
     to = to ? clipPos(this, to) : from
@@ -154,6 +155,7 @@ Doc.prototype = createObj(BranchChunk.prototype, {
       lines = lines ? lines.concat(sel) : sel
     }
     if (lineSep === false) return lines
+    if (lineSep === 'position') { return ranges } //wzkfix new
     else return lines.join(lineSep || this.lineSeparator())
   },
   getSelections: function(lineSep) {
